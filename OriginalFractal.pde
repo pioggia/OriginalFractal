@@ -1,28 +1,43 @@
-int length = 300;
-int width = 300;
-public void setup()
+int length = 500;
+int width = 500;
+boolean flash = false;
+void setup()
 {
-  size(length, width);
-  background(95, 240, 237);
+	size(length, width);
+	background(27, 33, 33);
 }
 public void draw()
 {
-  background(95, 240, 237);
-  rorschach(length/10, width-width/10, width/10*8);
+	if(flash == false)
+	{
+		background(27, 33, 33);
+		textSize(25);
+		textAlign(CENTER);
+		stroke(255);
+		text("warning, flashing lights \n press a to proceed", length/2, width/2);
+	}
+	else
+	{
+		background(27, 33, 33);
+		rorschach(length/2-50, width/2-50, 100);
+	}
 }
-public void rorschach(int x, int y, int radii) 
+public void keyPressed()
 {
-  if(radii >= 20)
-  {
-  	noFill();
-  	strokeWeight(1);
-  	stroke(250, 131, 46);
-    rorschach(x, y, radii/2);
-    rorschach(x+(int)Math.random()*30, y-(int)Math.random()*30, radii+(int)Math.random()*20-10);
-    rorschach(x+(int)Math.random()*100, y-(int)Math.random()*100, radii+(int)Math.random()*30);
-  }
-  else 
-  {
-    rect(x, y, radii, radii);
-  }
+	if(key == 'a')
+	{
+		flash = !flash;
+	}
+}
+public void rorschach(int x, int y, int size)
+{
+	fill((int)(Math.random()*100)+100, (int)(Math.random()*200)+100, (int)(Math.random()*200)+50, (int)(Math.random()*255));
+	stroke((int)(Math.random()*100)+100, (int)(Math.random()*200)+100, (int)(Math.random()*200)+50, (int)(Math.random()*255));
+	strokeWeight(1);
+	rect(x, y, size, size);
+	if(size>5)
+	{
+		rorschach((int)(Math.random()*500), (int)(Math.random()*500), size/(int)(Math.random()*3+1));
+		rorschach((int)(Math.random()*500), (int)(Math.random()*500), size/2);
+	}
 }
